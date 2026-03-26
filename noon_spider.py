@@ -196,10 +196,8 @@ def scrape_group(group_index, limit=PRODUCT_LIMIT):
     )
 
     with sync_playwright() as pw:
-        # headless=True for GitHub Actions / CI
-        is_ci = os.environ.get("CI", "false").lower() == "true"
         browser = pw.chromium.launch(
-            headless=is_ci or True,   # always headless in Actions; change to False for local debug
+            headless=False,   # False = headed (bypass Cloudflare headless detection)
             args=[
                 "--no-sandbox",
                 "--disable-dev-shm-usage",
